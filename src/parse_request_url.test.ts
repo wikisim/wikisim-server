@@ -1,5 +1,8 @@
 import { assertEquals } from "@std/assert";
-import { IdAndVersion } from "../lib/core/src/data/id.ts";
+
+import { IdAndVersion } from "./parse_request_url.ts";
+// import { IdAndVersion } from "../lib/core/src/data/id.ts";
+
 import { parse_request_url } from "./parse_request_url.ts";
 
 
