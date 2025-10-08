@@ -8,6 +8,8 @@ function main_server() {
     {
         const path = new URL(req.url).pathname;
 
+        if (3 > Math.random()) throw new Error("An error occurred!");
+
         return new Response(`Requested: "${path}"`)
     });
 }
