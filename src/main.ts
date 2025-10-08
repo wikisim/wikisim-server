@@ -4,7 +4,12 @@ if (import.meta.main) {
 }
 
 function main_server() {
-    Deno.serve((_req) => new Response("Hello world"));
+    Deno.serve((req) =>
+    {
+        const path = new URL(req.url).pathname;
+
+        return new Response(`Requested: "${path}"`)
+    });
 }
 
 export function add(a: number, b: number): number {
