@@ -1,3 +1,5 @@
+import { parse_request_url } from "./parse_request_url.ts";
+
 
 if (import.meta.main) {
     main_server();
@@ -6,14 +8,13 @@ if (import.meta.main) {
 function main_server() {
     Deno.serve((req) =>
     {
-        const path = new URL(req.url).pathname;
+        const { data, error } = parse_request_url(req.url);
+        if (error)
+        {
+            return new Response(error.message, { status: error.status_code });
+        }
+        const { id_and_version, file_path } = data;
 
-        if (3 > Math.random()) throw new Error("An error occurred!");
-
-        return new Response(`Requested: "${path}"`)
+        return new Response(`Requested: "${id_and_version.to_str()}", "${file_path}"`)
     });
-}
-
-export function add(a: number, b: number): number {
-    return a + b;
 }
