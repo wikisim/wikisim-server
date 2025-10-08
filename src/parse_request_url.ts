@@ -73,16 +73,16 @@ function truncate(text: string, max_length: number = 100): string
 
 type ParsedRequestUrlResult =
 {
-    error: {
-        message: string
-        status_code: number
-    }
-    data: null
-} | {
-    error: null
     data: {
         id_and_version: IdAndVersion
         file_path: string
+    }
+    error: null
+} | {
+    data: null
+    error: {
+        message: string
+        status_code: number
     }
 }
 
