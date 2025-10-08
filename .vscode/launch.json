@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Deno Test",
+            "type": "pwa-node",
+            "request": "launch",
+            "runtimeExecutable": "deno",
+            "args": [
+                "test",
+                "--inspect-brk=127.0.0.1:9229",
+                "--allow-all",
+                "--ignore=./supabase/functions/_core",
+                "${file}", // Runs the currently open test file
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "attachSimplePort": 9229
+        }
+    ]
+}
