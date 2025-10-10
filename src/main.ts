@@ -68,7 +68,7 @@ function error_response(error: { message: string, status_code: number } | string
 }
 
 
-async function reverse_proxy_fetch(resource: { url: string, content_type: string | false }): Promise<Response>
+async function reverse_proxy_fetch(resource: { url: string, content_type: string | undefined }): Promise<Response>
 {
     // Note: In a real reverse proxy, we would stream the response back to the client
     // and copy all headers. Here we just do a simple fetch for demonstration purposes.
