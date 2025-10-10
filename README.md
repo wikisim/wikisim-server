@@ -3,7 +3,8 @@
 
 [![Tests](https://github.com/wikisim/wikisim-server/actions/workflows/run_tests.yaml/badge.svg)](https://github.com/wikisim/wikisim-server/actions/workflows/run_tests.yaml)
 
-Simple server for WikiSim "interactables"
+Servers WikiSim "interactable" sites, which are static HTML/CSS/JS/etc
+directories of files.
 
 ## Dev
 
