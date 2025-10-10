@@ -36,7 +36,7 @@ export function deno_get_supabase_service_role()
 }
 
 
-export function get_supabase_clients(auth_header: string | null)
+export function deno_get_supabase_clients(auth_header: string | null)
 {
     const user_or_anon = auth_header
         ? deno_get_supabase_as_user(auth_header)
@@ -50,4 +50,4 @@ export function get_supabase_clients(auth_header: string | null)
 
 
 export type SupabaseClient = ReturnType<typeof deno_get_supabase_as_user>
-export type SupabaseClients = ReturnType<typeof get_supabase_clients>
+export type SupabaseClients = ReturnType<typeof deno_get_supabase_clients>
