@@ -34,9 +34,25 @@ function main_server()
         const { resource, error: url_to_file_error } = await get_url_to_file(supabase, map, file_path)
         if (url_to_file_error !== null) return error_response(url_to_file_error)
 
-        // return new Response(`Requested: "${id_and_version.to_str()}", "${file_path}" returned map: ${JSON.stringify([...map.entries()])}, url to resource: ${url}`, { status: 200 })
-        const content_response = await reverse_proxy_fetch(resource)
-        return content_response
+        // If content_type is "text/html", we reverse proxy the content because
+        // the supabase s3 bucket will not serve HTML files with the correct
+        // Content-Type header.
+        if (resource.content_type === "text/html")
+        {
+            const content_response = await reverse_proxy_fetch(resource)
+            return content_response
+        }
+
+        const headers = new Headers()
+        headers.set("Content-Type", resource.content_type || "application/octet-stream")
+        headers.set("Location", resource.url)
+        // Set cache time to 1 day
+        const cache_control = auth_header
+            ? "private, max-age=86400, must-revalidate"
+            : "public, max-age=86400"
+        headers.set("Cache-Control", cache_control)
+
+        return new Response(null, { status: 302, headers})
     })
 }
 
@@ -52,10 +68,11 @@ function error_response(error: { message: string, status_code: number } | string
 }
 
 
-async function reverse_proxy_fetch(resource: { url: string, content_type: string }): Promise<Response>
+async function reverse_proxy_fetch(resource: { url: string, content_type: string | false }): Promise<Response>
 {
     // Note: In a real reverse proxy, we would stream the response back to the client
     // and copy all headers. Here we just do a simple fetch for demonstration purposes.
     const body: ReadableStream<Uint8Array> | null = (await fetch(resource.url)).body
-    return new Response(body, { status: 200, headers: { "Content-Type": resource.content_type } })
+    const content_type = resource.content_type || "application/octet-stream"
+    return new Response(body, { status: 200, headers: { "Content-Type": content_type } })
 }

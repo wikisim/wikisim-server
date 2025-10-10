@@ -6,7 +6,7 @@ import { SupabaseClient } from "./deno_get_supabase.ts"
 
 type Result =
 {
-    resource: { url: string, content_type: string }
+    resource: { url: string, content_type: string | false }
     error: null
 } | {
     resource: null
@@ -48,7 +48,7 @@ export async function get_url_to_file(supabase: SupabaseClient, map: Map<string,
 
     // file_hash_filename should not include file extension so we can't use it
     // to get mime type
-    const content_type = mime_type.contentType(file_path)
+    const content_type: string | false = mime_type.contentType(file_path)
 
     return { resource: { url: publicUrl, content_type }, error: null }
 }
