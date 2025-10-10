@@ -3,6 +3,8 @@
 // import { truncate } from "../lib/core/src/utils/truncate.ts";
 // import { supabase_url, supabase_anon_key } from "../lib/core/src/supabase/constants.ts"
 // import { valid_value_type } from "../lib/core/src/data/field_values_with_defaults.ts"
+// import type { Database } from "../lib/core/src/supabase/interface.ts"
+import { Database as Database1 } from "./core_supabase_interface.ts"
 
 // TODO, remove all of these dependencies once we can recursively
 // clone /lib/core into Deno Deploy
@@ -64,6 +66,7 @@ export class IdAndVersion
 export const ERRORS =
 {
     ERR46: new Error("ERR46. wikisim-server encountered unexpected error."),
+    ERR47: new Error("ERR47. File not found."),
 }
 
 export function truncate(text: string, max_length: number = 100): string
@@ -75,7 +78,6 @@ export function truncate(text: string, max_length: number = 100): string
 export const supabase_url = "https://sfkgqscbwofiphfxhnxg.supabase.co"
 export const supabase_anon_key = "sb_publishable_XWsGRSpmju8qjodw4gIU8A_O_mHUR1H"
 export const INTERACTABLES_FILES_BUCKET = "interactables_files"
-export const INTERACTABLE_FILE_SIGNED_URL_EXPIRY_SECONDS = 60 * 60 // 1 hour
 
 
 export type ValueType =
@@ -113,3 +115,5 @@ export interface DBDataComponent
     value_type: ValueType | undefined
     result_value: string | null
 }
+
+export type Database = Database1

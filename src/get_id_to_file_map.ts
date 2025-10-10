@@ -1,6 +1,5 @@
-import { SupabaseClient } from "npm:@supabase/supabase-js@2.44.2"
-
 import { IdAndVersion } from "./core.ts"
+import { SupabaseClient } from "./deno_get_supabase.ts"
 import { get_component_by_id_and_version } from "./get_component_by_id_and_version.ts"
 import { get_site_map } from "./get_site_map.ts"
 
@@ -19,10 +18,10 @@ export async function get_id_to_file_map(supabase: SupabaseClient, id_and_versio
     {
         // Temporary hardcoded map for testing
         return { map: new Map([
-            ["index.html", "3ec1780c-ad44-4215-935b-4e2e0052eb03"],
-            ["script.js", "74baff2c-3362-4442-9ce5-afb854caacb2"],
-            ["style.css", "7b5d246d-a4f6-459d-86f4-4206c928ea33"],
-            ["assets/wikisim.png", "244c7499-8441-41b8-8d50-a502f03eb350"],
+            ["index.html", "1672acd0-bae1-422a-b115-93dcaeaf5c9e"],
+            ["script.js", "e8d33d4e-911c-4636-97fb-275e69a30ce6"],
+            ["style.css", "c2f40503-e8d8-4c78-95aa-6bfea2c680ae"],
+            ["assets/wikisim.png", "2e25fd96-efa9-48d2-a05b-191eda64c6ce"],
             // Just to show we can access other fields
             ["not used title", id_and_version.to_str()],
         ]), error: null }

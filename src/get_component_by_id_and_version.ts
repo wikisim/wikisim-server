@@ -1,6 +1,5 @@
-import { SupabaseClient } from "npm:@supabase/supabase-js@2.44.2"
-
 import { DBDataComponent, ERRORS, IdAndVersion, valid_value_type } from "./core.ts"
+import { SupabaseClient } from "./deno_get_supabase.ts"
 
 
 type Result =
@@ -12,8 +11,7 @@ type Result =
     error: { message: string, status_code: number }
 }
 
-// deno-lint-ignore no-explicit-any
-export async function get_component_by_id_and_version(id_and_version: IdAndVersion, supabase: SupabaseClient<any, "public", any>): Promise<Result>
+export async function get_component_by_id_and_version(id_and_version: IdAndVersion, supabase: SupabaseClient): Promise<Result>
 {
     // TODO: replace with request_historical_data_components once we get Deno
     // Deploy recursive git clone working
@@ -37,14 +35,13 @@ export async function get_component_by_id_and_version(id_and_version: IdAndVersi
     const component: DBDataComponent = {
         id: raw_component.id,
         version_number: raw_component.version_number,
-        value_type: raw_component.value_type,
+        value_type: valid_value_type(raw_component.value_type),
         result_value: raw_component.result_value,
     }
 
     if (component.value_type !== "interactable")
     {
-        const value_type = valid_value_type(component.value_type)
-        return error_response(`This component is not a WikiSim interactable but is a ${value_type}`, 404)
+        return error_response(`This component is not a WikiSim interactable but is a ${component.value_type}`, 404)
     }
 
     return { component, error: null }
