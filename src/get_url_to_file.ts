@@ -46,7 +46,9 @@ export async function get_url_to_file(supabase: SupabaseClient, map: Map<string,
         .from(INTERACTABLES_FILES_BUCKET)
         .getPublicUrl(file_metadata.file_hash_filename)
 
-    const content_type = mime_type.contentType(file_metadata.file_hash_filename)
+    // file_hash_filename should not include file extension so we can't use it
+    // to get mime type
+    const content_type = mime_type.contentType(file_path)
 
     return { resource: { url: publicUrl, content_type }, error: null }
 }
