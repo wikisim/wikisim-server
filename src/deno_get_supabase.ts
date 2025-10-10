@@ -1,9 +1,11 @@
-// Copied from wikisim-supabase/supabase/functions/_shared/deno_get_supabase.ts
+// Shared between
+// wikisim-supabase/supabase/functions/_shared/deno_get_supabase.ts
+// wikisim-server/src/deno_get_supabase.ts
 
-import { createClient } from "npm:@supabase/supabase-js@2.44.2"
-
+import { createClient } from "jsr:@supabase/supabase-js@2.44.2"
 
 import { Database, supabase_anon_key, supabase_url } from "./core.ts"
+
 
 
 export function deno_get_supabase_as_anon()
