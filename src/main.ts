@@ -31,10 +31,12 @@ function main_server()
         const { map, error: map_error } = await get_id_to_file_map(supabase, id_and_version)
         if (map_error) return error_response(map_error)
 
-        const { url, error: url_to_file_error } = await get_url_to_file(supabase, map, file_path)
-        if (url_to_file_error) return error_response(url_to_file_error)
+        const { resource, error: url_to_file_error } = await get_url_to_file(supabase, map, file_path)
+        if (url_to_file_error !== null) return error_response(url_to_file_error)
 
-        return new Response(`Requested: "${id_and_version.to_str()}", "${file_path}" returned map: ${JSON.stringify([...map.entries()])}, url to resource: ${url}`, { status: 200 })
+        // return new Response(`Requested: "${id_and_version.to_str()}", "${file_path}" returned map: ${JSON.stringify([...map.entries()])}, url to resource: ${url}`, { status: 200 })
+        const content_response = await reverse_proxy_fetch(resource)
+        return content_response
     })
 }
 
@@ -47,4 +49,13 @@ function error_response(error: { message: string, status_code: number } | string
     }
 
     return new Response(error.message, { status: error.status_code })
+}
+
+
+async function reverse_proxy_fetch(resource: { url: string, content_type: string }): Promise<Response>
+{
+    // Note: In a real reverse proxy, we would stream the response back to the client
+    // and copy all headers. Here we just do a simple fetch for demonstration purposes.
+    const body: ReadableStream<Uint8Array> | null = (await fetch(resource.url)).body
+    return new Response(body, { status: 200, headers: { "Content-Type": resource.content_type } })
 }

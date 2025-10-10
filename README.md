@@ -20,6 +20,7 @@ Deno, should already be enabled for this workspace (via .vscode/settings.json)
 May need to store dependencies manually in the deno cache with:
 ```bash
 deno cache https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts
+deno cache npm:mime-types@3.0.1
 ```
 
 ### Run tests
