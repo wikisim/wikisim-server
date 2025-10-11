@@ -1,3 +1,6 @@
+// Run this locally with:
+//    deno run --allow-net --allow-env --allow-read main.ts
+// Also can run debugger through visual studio code .vscode/launch.json config "Debug Deno Server"
 
 import { deno_get_supabase_as_anon } from "./deno_get_supabase.ts"
 import { get_id_to_file_map } from "./get_id_to_file_map.ts"
@@ -37,7 +40,7 @@ function main_server()
         // If content_type is "text/html", we reverse proxy the content because
         // the supabase s3 bucket will not serve HTML files with the correct
         // Content-Type header.
-        if (resource.content_type === "text/html")
+        if (resource.content_type?.startsWith("text/html"))
         {
             const content_response = await reverse_proxy_fetch(resource)
             return content_response

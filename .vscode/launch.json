@@ -16,6 +16,23 @@
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "attachSimplePort": 9229
+        },
+        {
+            "name": "Debug Deno Server",
+            "type": "pwa-node",
+            "request": "launch",
+            "runtimeExecutable": "deno",
+            "args": [
+                "run",
+                "--inspect-brk=127.0.0.1:9229",
+                "--allow-net",
+                "--allow-env",
+                "--allow-read",
+                "${workspaceFolder}/src/main.ts"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "attachSimplePort": 9229
         }
     ]
 }
