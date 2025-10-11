@@ -25,7 +25,7 @@ export type Database = {
           file_hash_filename: string
           allowed: boolean
         }
-      },
+      }
       data_components: {
         Row: {
           bytes_changed: number

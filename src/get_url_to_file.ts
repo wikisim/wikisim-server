@@ -1,6 +1,5 @@
-import { contentType } from "jsr:@std/media-types"
-
 import { ERRORS, INTERACTABLES_FILES_BUCKET } from "./core.ts"
+import { deno_get_content_type } from "./deno_get_content_type.ts"
 import { SupabaseClient } from "./deno_get_supabase.ts"
 
 
@@ -48,7 +47,7 @@ export async function get_url_to_file(supabase: SupabaseClient, map: Map<string,
 
     // file_hash_filename should not include file extension so we can't use it
     // to get mime type
-    const content_type: string | undefined = contentType(file_path)
+    const content_type = deno_get_content_type(file_path)
 
     return { resource: { url: publicUrl, content_type }, error: null }
 }
