@@ -3,7 +3,7 @@
 
 [![Tests](https://github.com/wikisim/wikisim-server/actions/workflows/run_tests.yaml/badge.svg)](https://github.com/wikisim/wikisim-server/actions/workflows/run_tests.yaml)
 
-Servers WikiSim "interactable" sites, which are static HTML/CSS/JS/etc
+Serves WikiSim "interactable" sites, which are static HTML/CSS/JS/etc
 directories of files.
 
 ## Dev
@@ -39,3 +39,7 @@ If you want to ensure your tests and linting pass before pushing, you can set up
 ln -s $(pwd)/scripts/pre-push.sh .git/hooks/pre-push
 chmod +x .git/hooks/pre-push
 ```
+
+### Deployment and hosting
+
+Push code to GitHub.  https://console.deno.com/wikisim will auto-deploy from the `main` branch.
