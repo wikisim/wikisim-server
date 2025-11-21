@@ -51,6 +51,12 @@ function main_server()
         headers.set("Location", resource.url)
 
         // Disable caching due to Deno edge cache truncating Location header
+        // e.g. if you visit https://wikisim-server.wikisim.deno.net/1080v1/TemplateData/style.css
+        // then the first response is fine, and the location header is correctly
+        // returned as
+        // "https://sfkgqscbwofiphfxhnxg.supabase.co/storage/v1/object/public/interactables_files/164c7f8cb3cbbbc7ff04bb9497dbcccaa535c43a46e7178ae53e6b46058bb9b4"
+        // however on subsequent requests, the response Location header gets truncated to
+        // "https://sfkgqscbwofiph"
         const cache_control = "no-store"
         // // Set cache time to 1 day
         // const cache_control = auth_header
