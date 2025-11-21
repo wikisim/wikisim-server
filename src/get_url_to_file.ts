@@ -45,7 +45,7 @@ export async function get_url_to_file(supabase: SupabaseClient, map: Map<string,
         .from(INTERACTABLES_FILES_BUCKET)
         .getPublicUrl(file_metadata.file_hash_filename)
 
-    console.log(`Generated public URL for file id "${file_id}":`, data.publicUrl, data)
+    // console .log(`Generated public URL for file id "${file_id}":`, data.publicUrl)
     const public_url = data.publicUrl
 
     // file_hash_filename should not include file extension so we can't use it
