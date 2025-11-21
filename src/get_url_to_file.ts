@@ -20,6 +20,7 @@ export async function get_url_to_file(supabase: SupabaseClient, map: Map<string,
         const message = `File path "${file_path}" not found in map`
         return { resource: null, error: { message, status_code: 404 }}
     }
+    console.log(`Found file id "${file_id}" for path "${file_path}"`)
 
     // Look up file_id in supabase table to get the file name and check if still
     // allowed to serve it or not
@@ -45,7 +46,7 @@ export async function get_url_to_file(supabase: SupabaseClient, map: Map<string,
         .from(INTERACTABLES_FILES_BUCKET)
         .getPublicUrl(file_metadata.file_hash_filename)
 
-    console.log(`Generated public URL for file id "${file_id}":`, data.publicUrl, data)
+    console.log(`Generated public URL for file id "${file_id}" with hash ${file_metadata.file_hash_filename}:`, data)
     const public_url = data.publicUrl
 
     // file_hash_filename should not include file extension so we can't use it
