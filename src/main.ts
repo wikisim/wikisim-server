@@ -49,10 +49,13 @@ function main_server()
         const headers = new Headers()
         headers.set("Content-Type", resource.content_type || "application/octet-stream")
         headers.set("Location", resource.url)
-        // Set cache time to 1 day
-        const cache_control = auth_header
-            ? "private, max-age=86400, must-revalidate"
-            : "public, max-age=86400"
+
+        // Disable caching due to Deno edge cache truncating Location header
+        const cache_control = "no-store"
+        // // Set cache time to 1 day
+        // const cache_control = auth_header
+        //     ? "private, max-age=86400, must-revalidate"
+        //     : "public, max-age=86400"
         headers.set("Cache-Control", cache_control)
 
         return new Response("", { status: 302, headers})
