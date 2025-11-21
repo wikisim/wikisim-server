@@ -55,7 +55,7 @@ function main_server()
             : "public, max-age=86400"
         headers.set("Cache-Control", cache_control)
 
-        return new Response(null, { status: 302, headers})
+        return new Response("", { status: 302, headers})
     })
 }
 
