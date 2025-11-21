@@ -41,13 +41,16 @@ export async function get_url_to_file(supabase: SupabaseClient, map: Map<string,
         return { resource: null, error: { message: ERRORS.ERR47.message, status_code: 404 }}
     }
 
-    const { data: { publicUrl } } = await supabase.storage
+    const { data } = await supabase.storage
         .from(INTERACTABLES_FILES_BUCKET)
         .getPublicUrl(file_metadata.file_hash_filename)
+
+    console.log(`Generated public URL for file id "${file_id}":`, data.publicUrl, data)
+    const public_url = data.publicUrl
 
     // file_hash_filename should not include file extension so we can't use it
     // to get mime type
     const content_type = deno_get_content_type(file_path)
 
-    return { resource: { url: publicUrl, content_type }, error: null }
+    return { resource: { url: public_url, content_type }, error: null }
 }
