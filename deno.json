@@ -12,5 +12,10 @@
   "exclude": [
     "lib/core/**",
     "lib/core/.*"
-  ]
+  ],
+  "lint": {
+    "rules": {
+      "exclude": ["no-import-prefix"]
+    }
+  }
 }
