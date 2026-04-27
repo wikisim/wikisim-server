@@ -64,3 +64,6 @@ chmod +x .git/hooks/pre-push
 ### Deployment and hosting
 
 Push code to GitHub.  https://console.deno.com/wikisim will auto-deploy from the `main` branch.
+
+* Need to add the SENTRY_DSN environment variable to the Deno Deploy project for
+    error monitoring with Sentry. -- have not yet confirmed this is working as of 2026-04-27 when it was added
