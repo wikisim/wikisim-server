@@ -19,10 +19,3 @@ pip install -r requirements.txt
 ```bash
 python monitor.py
 ```
-
-Or
-
-```bash
-touch monitor_log.txt
-python monitor.py & tail -f monitor_log.txt & wait
-```
