@@ -6,6 +6,27 @@
 Serves WikiSim "interactable" sites, which are static HTML/CSS/JS/etc
 directories of files.
 
+## Implementation
+
+When a component with type "interactable" has its files uploaded by the wikisim-supabase
+edge function it [is stored in a Supabase storage bucket](github.com/wikisim/wikisim-supabase/blob/799232c/supabase/functions/ef_upload_interactable_files/index.ts#L64).  And
+the file ids are saved on the component's result_value field like:
+
+    {
+        "index.html":"f8b070e9-a7a3-4b89-91f6-ed60d968da2b",
+        "svgs/bluesky.svg":"04439b4c-7a4d-4aa9-9f5e-a08c184e6e66",
+        "assets/index-BbATOUI6.js":"04eac4cc-c74c-44bf-acf3-70484ed0f2e0",
+        ...
+    }
+
+When the interactable component is loaded for the user by the frontend server, this
+currently involves [making an iframe with the URL](https://github.com/wikisim/wikisim-frontend/blob/d814bba/src/ui_components/data_component/PlayInteractable.tsx#L31) like: https://wikisim-server.wikisim.deno.net/1272v11/
+
+## Future work - reliability
+
+One user reported the [deno server timed out](https://github.com/wikisim/wikisim-server/issues/3).
+For now we are running a manual script to monitor the deno server's uptime and response time.
+
 ## Dev
 
     git clone --recursive git@github.com:wikisim/wikisim-server.git
