@@ -2,6 +2,9 @@
 //    deno run --allow-net --allow-env --allow-read main.ts
 // Also can run debugger through visual studio code .vscode/launch.json config "Debug Deno Server"
 
+import { setup_sentry } from "./deno_setup_sentry.ts"
+setup_sentry("deno-server")
+
 import { deno_get_supabase_as_anon } from "./deno_get_supabase.ts"
 import { get_id_to_file_map } from "./get_id_to_file_map.ts"
 import { get_url_to_file } from "./get_url_to_file.ts"
