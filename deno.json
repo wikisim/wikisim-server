@@ -1,5 +1,8 @@
 {
   "entry": "src/main.ts",
+  "fmt": {
+    "semiColons": false
+  },
   "tasks": {
     "dev": "deno run --watch main.ts"
   },
