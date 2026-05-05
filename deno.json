@@ -11,7 +11,8 @@
   },
   "exclude": [
     "lib/core/**",
-    "lib/core/.*"
+    "lib/core/.*",
+    "status_page"
   ],
   "lint": {
     "rules": {
